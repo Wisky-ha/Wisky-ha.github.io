@@ -119,21 +119,21 @@ function roll() {
 	    	break
 	    } else if (num[i] == 5) {
 	    	result = rt_t + '五子状元'
-	    	if (n[3] == 1) {
+	    	if (num[3] == 1) {
 	    		result += '加一秀'
 	    	}
 	    	break
 	    } else if (num[i] == 4){
 	    	if (i==3) {
 	    		result = rt_t + '状元'
-	    		if (n[0] == 2) {
+	    		if (num[0] == 2) {
 	    			result += '插金花'
 	    		}
 	    	} else {
 	    		result = rt_t + '四进'
-	    		if (n[3]==2){
+	    		if (num[3]==2){
 	    			result += '加二举'
-	    		} else if (n[3]==1){
+	    		} else if (num[3]==1){
 	    			result += '加一秀'
 	    		}
 	    	}
