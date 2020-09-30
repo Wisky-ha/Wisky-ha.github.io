@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-div {
+#b {
 	margin: 0;
 	position: absolute;
     left: 50%;
@@ -15,23 +15,34 @@ div {
 <body>
 
 <h3 style = 'text-align: center' > 手把手教你博饼规则（不）</h3>
+<p><br></p>
 
-<!--6 dice pics showing '1'-->
-<img id = 'd1' src = 'd_1.gif' alt = 'error' style='max-width:15%;'>
-<img id = 'd2' src = 'd_1.gif' alt = 'error' style='max-width:15%'>
-<img id = 'd3' src = 'd_1.gif' alt = 'error' style='max-width:15%'>
-<img id = 'd4' src = 'd_1.gif' alt = 'error' style='max-width:15%'>
-<img id = 'd5' src = 'd_1.gif' alt = 'error' style='max-width:15%'>
-<img id = 'd6' src = 'd_1.gif' alt = 'error' style='max-width:15%'>
+<div style = 'margin:3%'>
+<!--6 dice pics showing '7'-->
+<img id = 'd1' src = 'd_7.jpg' alt = 'error' style='max-width:15%;'>
+<img id = 'd2' src = 'd_7.jpg' alt = 'error' style='max-width:15%'>
+<img id = 'd3' src = 'd_7.jpg' alt = 'error' style='max-width:15%'>
+<img id = 'd4' src = 'd_7.jpg' alt = 'error' style='max-width:15%'>
+<img id = 'd5' src = 'd_7.jpg' alt = 'error' style='max-width:15%'>
+<img id = 'd6' src = 'd_7.jpg' alt = 'error' style='max-width:15%'>
+</div>
 
 <!-- explaining the result -->
 <p id='result' style = 'text-align: center' >
 测测你的手气吧~
 </p>
 
-<div>
+<div id='b'>
 <button onclick = 'roll()' > 走一个 </button>
 </div>
+
+<div style='margin:5px'>
+<p style = 'font-size:5px;color:grey'>
+<br><br><br>
+注：为了“教博饼规则”，调整了中奖概率，请莫要当真<br><br>
+注again：现实中的骰子四点是红色的，此处取材微信表情里的骰子，四点是黑色的！！打扰了
+</div>
+
 
 <script src = 'dice.js'>
 </script>
