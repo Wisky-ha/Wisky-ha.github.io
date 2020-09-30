@@ -1,6 +1,6 @@
 function roll() {
 
-    document.getElementById('result').innerHTML = ''
+    document.getElementById('result').innerHTML = '......'
     
 	// generate 6 random numbers
 	// update 6 pics into gifs with final settle down

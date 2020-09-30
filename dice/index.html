@@ -2,6 +2,14 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+div {
+	margin: 0;
+	position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+</style>
 </head>
 
 <body>
@@ -17,9 +25,13 @@
 <img id = 'd6' src = 'd_1.gif' alt = 'error' style='max-width:15%'>
 
 <!-- explaining the result -->
-<p id='result'></p>
+<p id='result' style = 'text-align: center' >
+测测你的手气吧~
+</p>
 
-<button onclick = 'roll()'> 走一个 </button>
+<div>
+<button onclick = 'roll()' > 走一个 </button>
+</div>
 
 <script src = 'dice.js'>
 </script>
