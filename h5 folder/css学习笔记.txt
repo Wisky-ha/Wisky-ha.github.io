@@ -1,0 +1,101 @@
+
+css selector
+by element:
+	element { ... }
+	e1, e2, e3 { ... } // multiple elements
+	* { ... } // all elements
+by id:
+	#id  { ... }
+by class:
+	.class { ... }
+
+
+External CSS: 单独文件
+<head>
+<link rel = 'stylesheet', href='css_file.css'>
+</head>
+对文件格式没要求，不需要加其它的什么<DOCTYPE><css>之类的
+
+Internal CSS:
+<head>
+<style> ... </style>
+</head>
+
+Inline CSS:
+<p style = '...'> ... </p>
+
+
+BOX MODEL:
+Margin套Border套Padding套Content
+
+
+Width&Height: 设置的是content的w&h
+div { 
+	height: 
+	width: 用max-width更好，适配各种屏幕
+}
+
+
+ColorNames: 
+https://www.w3schools.com/colors/colors_names.asp
+rgba(255,255,255,0.5) 最后一个a是alpha，值在0-1之间
+
+Change Color
+text:
+	color : ...
+background:
+	background-color : ...
+border:
+	border: 2px ...
+
+
+Background
+background-color:
+opacity: 0.0-1.0 透明度，会改变整块的透明度，不仅仅是背景
+	用RGBA改变单背景的透明度
+
+background-image : url('pic.jpg')
+background-repeat : repeat - x (only horizontally) / repeat - y (only vertically) / no-repeat
+background-postition: right top
+background-attachment: fixed (背景不被scroll) / scroll（背景跟着scroll）
+	repeat和position都是针对background-image
+
+可以缩写为一句：
+background:  color image repeat attachment position;
+
+
+Border
+style: dotted, solid, ... 可以写1，2，3，4个
+width: ...px (top bottom) 可以写1，2，3，4个
+	有preset：thin/medium/think
+color：可以写1，2，3，4个
+radius：圆角框
+
+
+Margin 文本框一样的东西
+div {
+	margin: 上 右 下 左 （距边，不是距0）
+	可以设置为auto，会自动居中
+	...
+}
+
+
+Padding 无法选定的空白处
+div { 
+	width: 100px
+	padding: 5px
+} 最终div会占用110px
+
+
+Text 
+div {
+	color: 定义text color
+	text-alignment: 
+	哎哟懒得搞了 这些不重要
+}
+
+
+
+
+
+

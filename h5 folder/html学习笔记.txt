@@ -1,0 +1,109 @@
+<!DOCTYPE html> 每个html网页都需要的declaration
+
+<html lang="zh-CN"> 该网页的所有内容都写在这对<></>中
+# lang: language always need to be specified
+# comment <! -- comments here -->
+
+<head> 暂时还不知道是做什么的
+<title> title <\title> 加收藏时，还有在search engine上显示时
+
+<meta charset="UTF-8">
+<meta name="description" content="Free Web tutorials">
+<meta name="keywords" content="HTML, CSS, JavaScript"> #for search engines
+<meta name="author" content="John Doe">
+# basic info
+
+# IMPORTANT: 适应屏幕
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+不仅如此，见css
+
+# IMPORTANT: base URL，所有的relative path 都建立在这之上
+<base href="https://www.w3schools.com/" target="_blank">
+
+<style>
+.st { 
+# define a class: .class_name {}
+# could be any element, style included
+	...
+}
+</style>
+
+<\head>
+
+
+<body> 所有页面上要显示的内容都写在这里
+
+<h1></h1> heading 从大到小 h1 -> h6
+<h2 class = 'st'> </h2> 调用前面定义好的class st
+<h3 id = 'name'> </h3> id：给此变量一个名字，用于js调用的
+
+<p>...  p: paragraph
+所有多余的whitespace都会被删除，所以无法人工加'       '来调整格式
+<br> line break 无需</br>
+<hr> 横隔线（像微信推送里那种，一条灰线）
+...</p>
+
+<pre title = 'bla'> 
+pre: preformatted: 就不需要什么<br>之类的，你在<pre>里写的什么样网页上就会展示成什么样
+title：鼠标移到这一段上的时候会自动出现的注释
+
+<b> bold</b>
+<i> italic</i> 
+<sub>下角标</sub>
+<sup> 上角标 </sup>
+...</pre> 
+
+<p>... <kdb>...</kbd>...</p>  kdb：keyboard input
+<p> b = <var>b</var></p> var : variable
+
+<script>
+# 见javascript
+code here
+</script>
+
+
+<div> a block 主要是为了设置一整块的格式吧，里面可以加各种元素
+<p>...</p>
+</div>
+
+
+<a href = 'https://www.baidu.com', target = '_blank'> click here to get redirected! </a> 
+超链接
+# href: Attributes
+	- provides additional information
+	- quoted in the start tag e.g.<a>
+	- 最好加上' '（如果句子里有""就用'' quote，如果有''就用""quote）
+		e.g. '叫"爸爸"'
+# target: 
+	'_self'：当前窗口打开，default
+	'_blank'：新开网页
+
+
+<button onclick='点击后操作'>text on button</button>
+
+
+<img src="w3schools.jpg" alt="W3Schools.com" width="104" height="142"> 
+# src: path of source file, e.g.
+	src = "img_girl.jpg"  relative to the current page
+	src = "/images/img_girl.jpg" relative to the domain 第一个backslash决定了它relate到哪
+# alt: 如果图片无法显示，就会显示这行字
+
+# relative path:
+<img src="picture.jpg">	
+	The "picture.jpg" file is located in the same folder as the current page
+<img src="images/picture.jpg">
+	The "picture.jpg" file is located in the images folder in the current folder
+<img src="/images/picture.jpg">
+	The "picture.jpg" file is located in the images folder at the root of the current web
+<img src="../picture.jpg">
+	The "picture.jpg" file is located in the folder one level up from the current folder
+
+
+
+</body> 
+
+</html>
+
+p.s. 查看一个网页的源代码：右键 —— 查看源代码， 或者 ctrl + U
+查看一个网页的CSS+HTML源代码：F12， 或者右键 —— 检查
+查看一个元素的CSS+HTML源代码：在元素上右键 —— 检查

@@ -1,0 +1,115 @@
+
+javascript能做的事：
+	change element content e.g. <p> hello </p> 变成 <p>world</p>
+	change element attribute values e.g. 换图象src=
+	change element style, show, hide,
+
+code written in <script></script>
+最好写在body里的最后
+可以写成一个file：script.js，调用的时候就<script src='script.js'></script>
+	src是source的简写
+	file里不用再写<script>了，直接code就行
+
+
+output:
+改变element content
+	document.getElementById(id).innerHTML = 
+测试输出：网页都会直接被overwrite
+	document.write('...')
+alert：弹出警告窗口
+	window.alert('...')
+调试输出：F12 -> console
+	console.log('...')
+
+
+statement:
+可以不加分号，需要define: var a
+
+function:
+function f(input){
+	blabla
+	return out
+}
+a = f(1)
+
+
+object:
+var obj = {attr1: '1', func1(): return this.attr1 ...}
+调用：obj.attr1 = 'changed'
+或者：obj[attr1] = 'changed'
+
+
+events:
+浏览器完成了一个行为 e.g. 浏览器load完毕
+用户完成了一个行为 e.g.点击了一个按钮
+
+固定格式语句 <element event = 'script'></element> e.g. 
+<button onclick = 'document.getElementById(p_id).innerHTML = Date()'>
+button_label
+</button>
+可以写成函数，这样一句就不会太长
+如果你想在点击button之后直接改button label，你可以这样写：
+<button onclick = 'this.innerHTML = Date()'>
+button_label
+</button>
+
+Here is a list of some common HTML events:
+onchange	
+	An HTML element has been changed
+onclick	
+	The user clicks an HTML element
+onmouseover
+	The user moves the mouse over an HTML element
+onmouseout
+	The user moves the mouse away from an HTML element
+onkeydown
+	The user pushes a keyboard key
+onload
+	The browser has finished loading the page
+
+
+animation: gradual changes
+var x = setInterval(func, interval) interval就是刷新周期啦
+function func() {
+	if (终止条件) {
+		clearInterval(x)
+	} else {
+		code of animation
+	}
+}
+
+
+js DOM: js于html的联动
+get element
+	getElementById(id).
+	getElementByTagName('p'). 某一种元素批量更改
+	getElementByClassName(name).
+	document.querySelectorAll('p.intro') 用css selector返回所有class='intro'的<p>
+
+change element
+	innerHTML =  用于替换element content e.g. <p> hello </p> 变成 <p>world</p>
+	attribute = 用于替换attributes e.g. 换图象src=
+	style.property = 用于替换style e.g.  .visibility = 
+add/delete element
+	document.createElement(e)
+	document.removeChild(e)
+	document.appendChild(e) 没看出和create啥区别啊
+	document.replaceChild(e)
+event handlers 写在<>里，getElement之前，e.g. onclick = ...getElement...
+	onclick = func(){}
+
+
+trivial grammar:
+支持 'a' + ' ' + 'b'
+支持 'a' + 1 (== 'a1')
+comment: //, /* */
+支持单行多赋值：var a=1, b=2, c=3
+如果没有赋值 var a：a值和type均为undefined a == undefined
+null代表这个变量根本不存在，null和undefined值一样，类不一样，null为object
+支持 '$'命名，e.g. var $money
+datatype：支持各种比较基本的，特别的，object = {}有点像dictionary，但是更像以前的struct
+调用函数 a = f(),引用函数 a = f
+
+
+
+

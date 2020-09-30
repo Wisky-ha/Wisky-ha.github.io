@@ -1,0 +1,30 @@
+<!DOCTYPE = html>
+<html lang = 'zh-CN'>
+
+<head>
+
+</head>
+
+<body>
+<h3>手把手教你博饼（不）</h3>
+<p id = 'dice'>1</p>
+<button onclick = 'roll()'>扔一个</button>
+
+
+<script>
+function roll() {
+	var x = setInterval(anim,50);
+	var n=10;
+	function anim(){
+		if (n == 0) {
+			clearInterval(x)
+		} else {
+			document.getElementById('dice').innerHTML = Math.floor(Math.random() * 6) + 1
+			n -= 1
+		}
+	}
+}
+</script>
+</body>
+
+</html>
