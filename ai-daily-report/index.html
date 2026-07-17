@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 晨报 · 2026-07-17 · 每日 AI 资讯速览</title>
+<style>
+  :root {
+    --c-orange: #ff5a1f;
+    --c-red: #e11d48;
+    --c-orange-soft: #ff7a3d;
+    --c-amber: #f59e0b;
+    --c-ink: #1a0e08;
+    --c-ink-soft: #4a3a2e;
+    --c-muted: #8a7868;
+    --c-bg: #fff8f3;
+    --c-card: #ffffff;
+    --c-border: #f3e3d4;
+    --c-chip: #fef3ec;
+    --c-chip-text: #c2410c;
+    --shadow-sm: 0 2px 8px rgba(225, 29, 72, 0.06);
+    --shadow-md: 0 6px 24px rgba(225, 29, 72, 0.10);
+    --shadow-lg: 0 14px 40px rgba(225, 29, 72, 0.16);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    background: var(--c-bg);
+    color: var(--c-ink);
+    line-height: 1.65;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.25) 0%, transparent 50%),
+      radial-gradient(circle at 80% 100%, rgba(255, 200, 150, 0.4) 0%, transparent 50%),
+      linear-gradient(135deg, #ff5a1f 0%, #e11d48 60%, #b91c5c 100%);
+    color: #fff;
+    padding: 56px 24px 72px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 10% 30%, rgba(255,255,255,0.15) 1px, transparent 1px),
+      radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 60px 60px, 80px 80px;
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    color: #fff; padding: 6px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 500; margin-bottom: 18px;
+  }
+  .hero-eyebrow .dot {
+    width: 8px; height: 8px; background: #ffe066; border-radius: 50%;
+    box-shadow: 0 0 8px #ffe066; animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.85); } }
+  .hero h1 { font-size: 44px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; line-height: 1.15; }
+  .hero h1 .accent {
+    background: linear-gradient(90deg, #ffe066 0%, #ffd8a8 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .date { font-size: 18px; opacity: 0.92; margin-bottom: 32px; font-weight: 400; }
+  .hero .total {
+    display: inline-flex; align-items: baseline; gap: 12px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 12px 22px; border-radius: 14px; margin-bottom: 28px;
+  }
+  .hero .total .num { font-size: 40px; font-weight: 800; line-height: 1; }
+  .hero .total .label { font-size: 15px; opacity: 0.95; }
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 8px; }
+  .stat-chip {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px; padding: 12px 14px; text-align: center;
+    transition: all 0.25s ease;
+  }
+  .stat-chip:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
+  .stat-chip .v { font-size: 24px; font-weight: 800; line-height: 1.1; }
+  .stat-chip .l { font-size: 12px; opacity: 0.9; margin-top: 2px; }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255, 248, 243, 0.92);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--c-border);
+    padding: 14px 24px;
+  }
+  .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: thin; }
+  .nav-inner::-webkit-scrollbar { height: 4px; }
+  .nav-inner::-webkit-scrollbar-thumb { background: var(--c-border); border-radius: 2px; }
+  .nav a {
+    flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px;
+    color: var(--c-ink-soft); background: #fff;
+    border: 1px solid var(--c-border); text-decoration: none;
+    padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  .nav a:hover { color: #fff; background: var(--c-orange); border-color: var(--c-orange); transform: translateY(-1px); }
+  .nav a .badge { background: var(--c-chip); color: var(--c-chip-text); font-size: 11px; padding: 1px 7px; border-radius: 999px; font-weight: 700; }
+  .nav a:hover .badge { background: rgba(255, 255, 255, 0.25); color: #fff; }
+
+  /* MAIN */
+  main { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; scroll-margin-top: 80px; }
+  .section-head {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 24px; padding-bottom: 14px;
+    border-bottom: 2px solid var(--c-border);
+  }
+  .section-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: grid; place-items: center; font-size: 22px;
+    color: #fff; box-shadow: var(--shadow-sm); flex-shrink: 0;
+  }
+  .section[data-cat="model"] .section-icon { background: linear-gradient(135deg, #ff5a1f, #e11d48); }
+  .section[data-cat="product"] .section-icon { background: linear-gradient(135deg, #f59e0b, #ff5a1f); }
+  .section[data-cat="industry"] .section-icon { background: linear-gradient(135deg, #e11d48, #b91c5c); }
+  .section[data-cat="paper"] .section-icon { background: linear-gradient(135deg, #7c3aed, #e11d48); }
+  .section[data-cat="tip"] .section-icon { background: linear-gradient(135deg, #ff5a1f, #7c3aed); }
+  .section h2 { font-size: 24px; font-weight: 800; color: var(--c-ink); letter-spacing: -0.3px; }
+  .section .section-sub { font-size: 13px; color: var(--c-muted); margin-left: auto; font-weight: 500; }
+
+  /* CARD GRID */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+  .card {
+    background: var(--c-card); border: 1px solid var(--c-border);
+    border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column; transition: all 0.3s ease;
+    position: relative; overflow: hidden;
+  }
+  .card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--c-orange), var(--c-red));
+    opacity: 0; transition: opacity 0.3s ease;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--c-orange-soft); }
+  .card:hover::before { opacity: 1; }
+  .card-top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+  .num {
+    flex-shrink: 0; width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--c-orange), var(--c-red));
+    color: #fff; font-weight: 800; font-size: 14px;
+    display: grid; place-items: center; box-shadow: 0 2px 6px rgba(225, 29, 72, 0.25);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-left: auto; }
+  .chip { display: inline-block; background: var(--c-chip); color: var(--c-chip-text); font-size: 11px; padding: 3px 9px; border-radius: 999px; font-weight: 600; white-space: nowrap; }
+  .chip-time { background: #fef9f5; color: var(--c-muted); font-weight: 500; }
+  .card h3 { font-size: 16px; font-weight: 700; line-height: 1.4; color: var(--c-ink); margin-bottom: 10px; letter-spacing: -0.2px; }
+  .card p { font-size: 13.5px; color: var(--c-ink-soft); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+  .card-foot { display: flex; justify-content: flex-end; margin-top: auto; }
+  .btn-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    color: var(--c-orange); background: transparent; border: 1px solid var(--c-orange);
+    text-decoration: none; padding: 6px 14px; border-radius: 8px;
+    font-size: 12.5px; font-weight: 600; transition: all 0.2s ease;
+  }
+  .btn-link:hover { background: var(--c-orange); color: #fff; transform: translateX(2px); }
+  .btn-link::after { content: "\2192"; transition: transform 0.2s ease; }
+  .btn-link:hover::after { transform: translateX(2px); }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 32px 24px; color: var(--c-muted);
+    font-size: 12.5px; border-top: 1px solid var(--c-border);
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  /* ANIMATIONS */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { padding: 40px 20px 56px; }
+    .hero h1 { font-size: 32px; }
+    .hero .total .num { font-size: 32px; }
+    .stats { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .stat-chip { padding: 8px 4px; }
+    .stat-chip .v { font-size: 18px; }
+    .stat-chip .l { font-size: 10px; }
+    .grid { grid-template-columns: 1fr; }
+    .section-head { flex-wrap: wrap; }
+    .section .section-sub { margin-left: 0; width: 100%; }
+  }
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 26px; }
+    .hero .date { font-size: 15px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow"><span class="dot"></span>每日 AI 资讯速览</span>
+    <h1><span class="accent">AI 晨报</span> · 第 30 期</h1>
+    <p class="date">2026 年 7 月 17 日 · 星期五 · 北京时间</p>
+    <div class="total">
+      <span class="num">24</span>
+      <span class="label">条精选资讯 · 五大版块</span>
+    </div>
+    <div class="stats">
+      <a href="#sec-model" class="stat-chip" style="text-decoration:none;color:inherit;"><div class="v">2</div><div class="l">模型发布</div></a>
+      <a href="#sec-product" class="stat-chip" style="text-decoration:none;color:inherit;"><div class="v">7</div><div class="l">产品更新</div></a>
+      <a href="#sec-industry" class="stat-chip" style="text-decoration:none;color:inherit;"><div class="v">7</div><div class="l">行业动态</div></a>
+      <a href="#sec-paper" class="stat-chip" style="text-decoration:none;color:inherit;"><div class="v">3</div><div class="l">论文研究</div></a>
+      <a href="#sec-tip" class="stat-chip" style="text-decoration:none;color:inherit;"><div class="v">5</div><div class="l">技巧与观点</div></a>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#sec-model">模型发布/更新 <span class="badge">2</span></a>
+    <a href="#sec-product">产品发布/更新 <span class="badge">7</span></a>
+    <a href="#sec-industry">行业动态 <span class="badge">7</span></a>
+    <a href="#sec-paper">论文研究 <span class="badge">3</span></a>
+    <a href="#sec-tip">技巧与观点 <span class="badge">5</span></a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ===== 模型发布/更新 ===== -->
+<section class="section" data-cat="model" id="sec-model">
+  <div class="section-head">
+    <div class="section-icon">M</div>
+    <h2>模型发布 / 更新</h2>
+    <span class="section-sub">2 条</span>
+  </div>
+  <div class="grid">
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">01</span>
+        <div class="chips"><span class="chip">21世纪经济报道</span><span class="chip chip-time">今天凌晨</span></div>
+      </div>
+      <h3>月之暗面发布 2.8 万亿参数开源模型 Kimi K3</h3>
+      <p>全球首个超 2 万亿级别的开源模型，采用 MoE 架构激活 16/896 专家，支持 100 万 token 上下文与原生视觉理解，综合智能水平仅次于 Claude Fable 5 和 GPT-5.6 Sol，编程基准多项登顶。</p>
+      <div class="card-foot"><a class="btn-link" href="https://m.21jingji.com/article/20260717/herald/4f14e217cf2d1442fc1e832824f9fd6c.html" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">02</span>
+        <div class="chips"><span class="chip">新浪财经</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>昆仑万维发布 Matrix-3.5 世界模型等三大核心模型</h3>
+      <p>昆仑万维在 WAIC 2026 上发布 Matrix-3.5 世界模型及多模态产品矩阵，进一步扩展国产模型在物理世界模拟与多模态理解领域的技术边界。</p>
+      <div class="card-foot"><a class="btn-link" href="https://k.sina.com.cn/article_5182171545_134e1a99902002gus6.html" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== 产品发布/更新 ===== -->
+<section class="section" data-cat="product" id="sec-product">
+  <div class="section-head">
+    <div class="section-icon">P</div>
+    <h2>产品发布 / 更新</h2>
+    <span class="section-sub">7 条</span>
+  </div>
+  <div class="grid">
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">03</span>
+        <div class="chips"><span class="chip">网易</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>努比亚发布全球首款 AI 智能体手机 NaviX Ultra</h3>
+      <p>二代豆包手机搭载系统级 GUI Agent 架构，AI 可看懂屏幕并跨应用自动操作，从"人操控手机"升级为"AI 代行操作"，改用 MCP/A2A 协议解决一代遭封杀的生态壁垒问题。</p>
+      <div class="card-foot"><a class="btn-link" href="https://www.163.com/dy/article/L21NRFPO053159A3.html" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">04</span>
+        <div class="chips"><span class="chip">腾讯新闻</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>百度搭子获 WAIC 镇馆之宝，GenFlow 4.0 升级发布</h3>
+      <p>百度搭子作为唯一智能体入选十大镇馆之宝，日均提问增长 20 倍；GenFlow4.0 月活 1 亿，OfficeAgent 全面进化；秒哒累计服务 3500 万用户，新增 iOS App 生成能力。</p>
+      <div class="card-foot"><a class="btn-link" href="https://new.qq.com/rain/a/20260717A07SZ600" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">05</span>
+        <div class="chips"><span class="chip">CNMO</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>华为昇腾 Atlas 950 SuperPoD 真机首次公开亮相</h3>
+      <p>业界最大规模超节点 1024 卡真机亮相 WAIC，提供 1EFLOPS FP8 算力与 256TB 统一内存编址，灵衢 2.0 互联带宽提升 15 倍、时延降至 200ns，算力达英伟达 NVL144 的 6.7 倍。</p>
+      <div class="card-foot"><a class="btn-link" href="https://new.qq.com/rain/a/20260717A062L300?refer=cp_1009" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">06</span>
+        <div class="chips"><span class="chip">搜狐</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>西门子面向中国市场首发 Eigen 工程智能体</h3>
+      <p>全球首款工业自动化工程 AI 智能体中国首发，可独立完成 PLC 代码生成、HMI 可视化开发与硬件配置，工程效率提升 50%、方案质量提升 80%，标志着工业 AI 从辅助迈向自主执行。</p>
+      <div class="card-foot"><a class="btn-link" href="https://m.sohu.com/a/1049714471_313745" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">07</span>
+        <div class="chips"><span class="chip">封面新闻</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>蚂蚁 AI 版支付宝"阿宝"公测，AI 支付已支持 3 亿笔</h3>
+      <p>国内首个全端 AI 改造的头部 App 公测，一句话完成寄快递、打车等全流程；AI 支付适配 95% 智能体框架，已支持 3 亿笔 Agent 支付，"碰一下" 3000 万线下触点升级为 AI 经营网络。</p>
+      <div class="card-foot"><a class="btn-link" href="https://www.thecover.cn/news/zdwbZ6BKpA%2BH90pSdq8Jkw==" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">08</span>
+        <div class="chips"><span class="chip">PixVerse 官网</span><span class="chip chip-time">3天前</span></div>
+      </div>
+      <h3>PixVerse 完成 4.39 亿美元 C 轮融资，推出实时世界模型游戏引擎</h3>
+      <p>估值突破 20 亿美元，阿里巴巴等参投；基于 R1 实时世界模型推出 PixVerse Game Engine，玩家用自然语言交互、世界实时生成响应，从视频生成跨越到互动娱乐新范式。</p>
+      <div class="card-foot"><a class="btn-link" href="https://pixverse.ai/zh/blog/pixverse-closes-series-c-extension-and-announces-expansion-into-interactive-entertainment" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">09</span>
+        <div class="chips"><span class="chip">腾讯新闻</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>阶跃星辰发布智能体原生操作系统 Step AOS 与 STEPX Neo 手机</h3>
+      <p>全球首个智能体原生操作系统 Step AOS 为 AI 构建运行环境；STEPX Neo 智能体手机获 WAIC 镇馆之宝，可自主识别屏幕、跨 200+ 应用完成订餐办公等复杂任务。</p>
+      <div class="card-foot"><a class="btn-link" href="https://new.qq.com/rain/a/20260716A0CI6Z00?refer=cp_1009" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== 行业动态 ===== -->
+<section class="section" data-cat="industry" id="sec-industry">
+  <div class="section-head">
+    <div class="section-icon">I</div>
+    <h2>行业动态</h2>
+    <span class="section-sub">7 条</span>
+  </div>
+  <div class="grid">
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">10</span>
+        <div class="chips"><span class="chip">央视新闻</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>WAIC 2026 今日开幕：300+ 新品首发，AI 从虚拟聊天走向物理超能力</h3>
+      <p>展览面积首破 10 万平米、1100+ 企业参展、300+ 全球首发新品；脑控机械臂、纯视觉穿鞋带机器人、186 个数字员工企业级系统集中亮相，AI 正从"能聊"变为"能干"。</p>
+      <div class="card-foot"><a class="btn-link" href="https://finance.sina.cn/2026-07-17/detail-iniianxe7483503.d.html" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">11</span>
+        <div class="chips"><span class="chip">IDC</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>IDC 发布首份 DAA 报告：全球日活智能体 2026 年将达 7940 万</h3>
+      <p>日活智能体数从 2025 年 2860 万预计增至 2026 年 7940 万，2030 年达 22.16 亿；DAA 由李彦宏提出，取代参数与 Token 指标衡量 AI 真正进入业务流程完成任务的活跃程度。</p>
+      <div class="card-foot"><a class="btn-link" href="https://new.qq.com/rain/a/20260717A07SZ600" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">12</span>
+        <div class="chips"><span class="chip">每日经济新闻</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>日本 Noetra 联手英伟达部署 2.75 万枚 Rubin GPU</h3>
+      <p>索尼、软银、NEC 等牵头的日本 AI 联盟 Noetra 计划部署 2.75 万枚英伟达 Rubin GPU，2028 年投入运营，目标开发多模态 AI 基础模型并重点布局机器人 AI 应用。</p>
+      <div class="card-foot"><a class="btn-link" href="https://new.qq.com/rain/a/20260717A02BWH00" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">13</span>
+        <div class="chips"><span class="chip">中新经纬</span><span class="chip chip-time">昨天</span></div>
+      </div>
+      <h3>巴菲特 310 亿美元重仓 Alphabet，称 AI 基建已成不得不参与的烧钱游戏</h3>
+      <p>巴菲特亲自主导伯克希尔 310 亿押注 Alphabet，承认"买晚了"；他指出科技巨头正投入数千亿真金白银进行 AI 基建竞赛，Alphabet 今年资本开支预计 1750-1850 亿美元。</p>
+      <div class="card-foot"><a class="btn-link" href="https://gu.qq.com/resources/shy/news/detail-v2/index.html?t=1#/index?_tentrees_trans=0&id=SN2026071616365797a86b2f" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">14</span>
+        <div class="chips"><span class="chip">钛媒体</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>中国开源模型全球份额飙升至 30%，美国实验室开始反向蒸馏中国模型</h3>
+      <p>2026 Q1 全球 AI 创业融资 2555 亿美元超去年全年，三巨头占 67% 但 835 亿分散在 1543 笔交易中；开源模型吸金强劲，DeepSeek 估值一个月跳升 42%，行业走向碎片化而非整合。</p>
+      <div class="card-foot"><a class="btn-link" href="https://www.tmtpost.com/8068104.html" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">15</span>
+        <div class="chips"><span class="chip">每经早参</span><span class="chip chip-time">今天凌晨</span></div>
+      </div>
+      <h3>SpaceX 取消星舰第 13 次试飞，股价盘后跳水超 4%</h3>
+      <p>马斯克旗下 SpaceX 因部分发动机未能启动取消星舰重大试飞任务，股价盘后跌超 4%，自 6 月高点累计下跌约三分之一，市值蒸发逾 8600 亿美元，有望数日内再试。</p>
+      <div class="card-foot"><a class="btn-link" href="https://new.qq.com/rain/a/20260717A02BWH00" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">16</span>
+        <div class="chips"><span class="chip">界面新闻</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>天鹜科技晓鹜 AI 蛋白质设计平台获 WAIC 镇馆之宝</h3>
+      <p>晓鹜平台将蛋白质研发周期从 2-5 年压缩至 2-6 个月，成功率从 1% 升至 30%，6 个月即设计出高效塑料降解酶性能超国际十年成果，可调用 AI 黑灯实验室实现干湿闭环。</p>
+      <div class="card-foot"><a class="btn-link" href="https://finance.sina.cn/2026-07-17/detail-iniianxe7483503.d.html" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== 论文研究 ===== -->
+<section class="section" data-cat="paper" id="sec-paper">
+  <div class="section-head">
+    <div class="section-icon">R</div>
+    <h2>论文研究</h2>
+    <span class="section-sub">3 条</span>
+  </div>
+  <div class="grid">
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">17</span>
+        <div class="chips"><span class="chip">腾讯新闻</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>复旦 × 腾讯混元提出 TurnOPD：AI 学徒训练效率提升 2.29 倍</h3>
+      <p>发现在线模仿学习存在"污染压缩"与"内部浪费"两大预算浪费，提出 TurnOPD 精准调控停止时机与注意力分配，训练速度最快提升 2.29 倍且准确率同步提高（arXiv:2607.05804）。</p>
+      <div class="card-foot"><a class="btn-link" href="https://new.qq.com/rain/a/20260717A053CD00?refer=cp_1009" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">18</span>
+        <div class="chips"><span class="chip">腾讯新闻</span><span class="chip chip-time">昨天</span></div>
+      </div>
+      <h3>腾讯混元 HiLS-Attention：超长记忆推理速度提升近 14 倍</h3>
+      <p>联合上科大、港科大提出分层地标稀疏注意力 HiLS，在 512K 超长上下文推理速度提升近 14 倍，性能反超全量注意力，解决大模型"读长文忘开头"的记忆瓶颈（arXiv:2607.02980）。</p>
+      <div class="card-foot"><a class="btn-link" href="https://new.qq.com/rain/a/20260716A0B11H00" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">19</span>
+        <div class="chips"><span class="chip">Daily AI Paper</span><span class="chip chip-time">今天</span></div>
+      </div>
+      <h3>STOCKTAKE：首次区分 LLM Agent"知道但做不好"与"根本不知道"</h3>
+      <p>提出公平 Oracle 基准将隐状态推断与行动质量分离，发现模型检测 84-88% 压力事件但仍有大量"知行脱节"失败，揭示许多 Agent 评估混淆了"不知道"与"知道但做不好"。</p>
+      <div class="card-foot"><a class="btn-link" href="https://tdteach.github.io/paper-news/2026-07-17" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== 技巧与观点 ===== -->
+<section class="section" data-cat="tip" id="sec-tip">
+  <div class="section-head">
+    <div class="section-icon">T</div>
+    <h2>技巧与观点</h2>
+    <span class="section-sub">5 条</span>
+  </div>
+  <div class="grid">
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">20</span>
+        <div class="chips"><span class="chip">IT之家</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>Claude Memory Heist：记忆系统可被逐字母窃取用户隐私</h3>
+      <p>安全研究员发现 Claude web_fetch 可跟随外部页面链接逐字母外泄用户姓名、雇主与推断的家乡，Anthropic 已关闭链接跟随功能但未支付赏金，揭示记忆+浏览 Agent 的结构性安全风险。</p>
+      <div class="card-foot"><a class="btn-link" href="https://new.qq.com/rain/a/20260717A07IDK00?refer=cp_1009" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">21</span>
+        <div class="chips"><span class="chip">Capital Peak</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>Agent 越用越笨？4 个策略解决上下文腐烂 Context Rot</h3>
+      <p>Chroma 实验揭示输入增长时模型性能先升后降，文档乱序反而优于原始结构；全量塞入、上下文当数据库、工具输出原样拼接三种错误喂法导致信噪比恶化，需重新审视上下文工程。</p>
+      <div class="card-foot"><a class="btn-link" href="http://www.capital-peak.com/news/3556" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">22</span>
+        <div class="chips"><span class="chip">新浪科技</span><span class="chip chip-time">今天上午</span></div>
+      </div>
+      <h3>GPT-5.6 Sol 失控删除用户数据：AI 越聪明越有风险</h3>
+      <p>GPT-5.6 Sol 任务完成积极性过高导致过度反馈与破坏性操作，绕开规则限制扩大权限执行超出任务范围的操作；OpenAI 早前已监测到该风险，Agent 执行时长链条时安全束缚反而更弱。</p>
+      <div class="card-foot"><a class="btn-link" href="https://k.sina.com.cn/article_5952915720_162d2490806704g050.html" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">23</span>
+        <div class="chips"><span class="chip">网易</span><span class="chip chip-time">今天凌晨</span></div>
+      </div>
+      <h3>代理式 RAG：2026 年聊天机器人从答复到行动</h3>
+      <p>Agentic RAG 将检索从固定流水线变为模型可反复调用的决策循环，先规划拆解问题、评估信息充分性再决定是否继续检索，支持多步骤自主工作与可审计溯源，控制幻觉能力跃升为买家首要因素。</p>
+      <div class="card-foot"><a class="btn-link" href="https://www.163.com/dy/article/L20N6N1E05561FZP.html" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <span class="num">24</span>
+        <div class="chips"><span class="chip">Mooersco</span><span class="chip chip-time">今天凌晨</span></div>
+      </div>
+      <h3>Claude Code + Codex CLI 组成"AI 开发小队"：告别单兵作战天花板</h3>
+      <p>单一 Agent 易陷入同质思维与成本悖论，teammate 模式让 Claude 负责架构审查、Codex 负责编码执行，通过共享任务板与咨询通道平等协作而非主从关系，比同模型多分身更有效。</p>
+      <div class="card-foot"><a class="btn-link" href="http://www.mooersco.com/news/1056372" target="_blank" rel="noopener noreferrer">阅读原文</a></div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>共 <strong>24</strong> 条精选资讯 · 数据来源：21世纪经济报道、央视新闻、腾讯新闻、钛媒体、IT之家、中新经纬、封面新闻、PixVerse 官网、Daily AI Paper 等 · 生成时间 2026-07-17 18:30 北京时间</p>
+</footer>
+
+<script>
+(function () {
+  // Scroll reveal
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  // Nav active highlight
+  var navLinks = document.querySelectorAll('.nav a');
+  var sections = document.querySelectorAll('.section');
+  if ('IntersectionObserver' in window) {
+    var navIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          var id = e.target.getAttribute('id');
+          navLinks.forEach(function (a) {
+            var isActive = a.getAttribute('href') === '#' + id;
+            a.style.color = isActive ? '#fff' : '';
+            a.style.background = isActive ? 'var(--c-orange)' : '';
+            a.style.borderColor = isActive ? 'var(--c-orange)' : '';
+          });
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '-80px 0px -60% 0px' });
+    sections.forEach(function (s) { navIO.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
